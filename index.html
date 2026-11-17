@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>四方世界存档瘦身器</title>
+<style>
+  :root { color-scheme: light; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: #f5f2ec; color: #2b2620; line-height: 1.6;
+  }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 32px 20px 80px; }
+  h1 { font-size: 26px; margin: 0 0 4px; letter-spacing: 1px; }
+  .sub { color: #7a7060; font-size: 14px; margin-bottom: 24px; }
+  .card { background: #fff; border: 1px solid #e5dfd3; border-radius: 12px; padding: 20px 22px; margin-bottom: 18px;
+          box-shadow: 0 1px 3px rgba(60,50,30,.06); }
+  .drop {
+    border: 2px dashed #c9bfa9; border-radius: 12px; padding: 34px 20px; text-align: center;
+    color: #8a7f6c; cursor: pointer; transition: .15s; background: #faf8f3;
+  }
+  .drop.on { border-color: #b5762a; background: #fdf6e9; color: #8a5a1a; }
+  .drop b { color: #6b5b3e; }
+  input[type=file] { display: none; }
+  .opts { display: grid; gap: 10px; }
+  .opt { display: flex; gap: 10px; align-items: flex-start; padding: 10px 12px; border: 1px solid #eae4d6; border-radius: 10px; background: #fdfcf9; }
+  .opt input { margin-top: 5px; }
+  .opt .t { font-weight: 600; font-size: 14.5px; }
+  .opt .d { font-size: 12.5px; color: #857a67; margin-top: 2px; }
+  button.primary {
+    font-size: 16px; padding: 12px 34px; border: none; border-radius: 10px; cursor: pointer;
+    background: #8a5a1a; color: #fff; letter-spacing: 2px;
+  }
+  button.primary:disabled { background: #c9bfa9; cursor: not-allowed; }
+  button.primary.sec { background: #5a6b4a; font-size: 14px; padding: 10px 26px; }
+  .stats { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .stats td { padding: 7px 8px; border-bottom: 1px solid #f0ebdf; }
+  .stats td:last-child { text-align: right; font-variant-numeric: tabular-nums; color: #4a4030; }
+  .stats tr.hd td { font-weight: 700; color: #6b5b3e; border-bottom: 2px solid #e5dfd3; }
+  .check { display: flex; gap: 8px; align-items: center; font-size: 14px; padding: 4px 0; }
+  .check .mark { width: 20px; height: 20px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center;
+                 color: #fff; font-size: 12px; flex: none; }
+  .ok .mark { background: #5a8a4a; } .bad .mark { background: #b04a3a; }
+  .hl { color: #8a5a1a; font-weight: 700; }
+  .muted { color: #9a9080; font-size: 12.5px; }
+  #status { font-size: 14px; color: #6b5b3e; min-height: 22px; }
+  .row { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; margin-top: 14px; }
+  .big { font-size: 20px; font-weight: 700; }
+  footer { margin-top: 28px; font-size: 12.5px; color: #9a9080; }
+  a { color: #8a5a1a; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>四方世界存档瘦身器</h1>
+  <div class="sub">sifang-save v2 · 纯浏览器本地处理，存档不会上传到任何服务器 · 请先备份原档</div>
+
+  <div class="card">
+    <div class="drop" id="drop">
+      <b>点击选择</b> 或把存档 .json 拖到这里<br>
+      <span class="muted">支持已瘦身过的档重复使用（幂等）· 大档（数百 MB）解析需要一些时间与内存</span>
+    </div>
+    <input type="file" id="file" accept=".json,application/json">
+    <p id="status"></p>
+  </div>
+
+  <div class="card">
+    <div class="opts" id="opts"></div>
+  </div>
+
+  <div class="card" id="runcard" style="display:none">
+    <div class="row" style="margin-top:0">
+      <button class="primary" id="go">开始瘦身</button>
+      <span class="muted">瘦身前会记录当前状态，完成后自动校验链路 / 引用 / 线索回放。</span>
+    </div>
+  </div>
+
+  <div class="card" id="result" style="display:none">
+    <div id="sizes" class="row" style="margin-top:0"></div>
+    <table class="stats" id="statstable"></table>
+    <div id="checks" style="margin-top:14px"></div>
+    <div class="row">
+      <button class="primary sec" id="dl" disabled>下载瘦身档</button>
+      <span class="muted">导入方式与原档相同：游戏内「设置 → 存档 → 导入存档」。</span>
+    </div>
+  </div>
+
+  <footer>
+    删除内容均为生成复现/推演/回溯类数据，正文、思考、记忆、关系与世界状态不受影响。详见
+    <a href="https://github.com/Suixinlei/sifang-slimmer" target="_blank">GitHub 仓库</a>。
+  </footer>
+</div>
+
+<script src="slim.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
