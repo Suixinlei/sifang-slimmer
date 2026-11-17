@@ -8,8 +8,8 @@ const fmtMB = (bytes) => (bytes / 1048576).toFixed(1) + ' MB';
 const OPTS = [
   { key: 'recipe', t: '删除 recipe 生成记录', d: '逐楼生成的提示词组装记录，通常占档案 70% 以上体积。删后不影响正文、思考、继续游戏和重摇当前楼层；丢失旧楼层的提示词复现/审计能力。', on: true },
   { key: 'genFields', t: '删除生成时字段', d: 'inputs / preScript / runtimeWI / seed / sentHash / usage / cost——生成复现、随机种子与用量统计。', on: true },
-  { key: 'career', t: '删除职业推演检查点', d: '节点 ext.career（职业小世界状态）。主线的属性与职业经验在状态快照里，不受影响；仅丢失中途恢复推演的能力。', on: true },
-  { key: 'snapshots', t: '快照只保留每链最新', d: '每条分支链保留最近一个状态快照。各卷头的当前状态不受影响；回溯到早于快照的楼层时状态重建会退化。', on: true },
+  { key: 'career', t: '删除职业推演检查点', d: '节点 ext.career（职业小世界状态）。主线的属性与职业经验在状态快照里，不受影响；仅丢失中途恢复推演的能力。', on: false },
+  { key: 'snapshots', t: '快照只保留每链最新', d: '每条分支链保留最近一个状态快照。各卷头的当前状态不受影响；回溯到早于快照的楼层时状态重建会退化。', on: false },
   { key: 'orphans', t: '删除孤儿节点（旧 swipe / 换版残留）', d: '从任何卷都不可达的节点，连同悬挂的 rev/sent 日志、world.retired 键与 purse 条目。卷上仍可达的多版本节点不动。', on: true },
 ];
 
